@@ -5,6 +5,7 @@ from timezone_field import TimeZoneField
 
 
 class UserProfile(models.Model):
+
     user = models.OneToOneField(User, max_length=200, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -14,7 +15,17 @@ class UserProfile(models.Model):
     time_zone = TimeZoneField()
     created_date = models.DateTimeField(auto_created=True)
 
+    def __str__(self):
+        return str(self.user)
+
 
 class UserPunch(models.Model):
+
+    class Meta:
+        verbose_name_plural = "user punches"
+
     punch_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     punch_time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.punch_user)
